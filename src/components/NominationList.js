@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { removeMovie } from "../actions/movieActions";
 
-class MovieList extends Component {
+class NominationList extends Component {
   static propTypes = {
-    movies: PropTypes.array.isRequired,
+    nominations: PropTypes.array.isRequired,
     removeMovie: PropTypes.func.isRequired,
   };
 
@@ -49,4 +49,4 @@ const mapStateToProps = (state) => ({
   nominations: state.movie.nominations,
 });
 
-export default connect(mapStateToProps, { removeMovie })(MovieList);
+export default connect(mapStateToProps, { removeMovie })(NominationList);

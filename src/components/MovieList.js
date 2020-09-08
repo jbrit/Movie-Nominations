@@ -4,21 +4,11 @@ import { connect } from "react-redux";
 import { nominateMovie, getMovies } from "../actions/movieActions";
 
 class MovieList extends Component {
-  static propTypes = {
-    movies: PropTypes.array.isRequired,
-    getMovies: PropTypes.func.isRequired,
-    nominateMovie: PropTypes.func.isRequired,
-  };
-
-  componentWillMount() {
-    this.props.getMovies("hey");
-  }
-
   render() {
-    const { movies, nominations, nominateMovie } = this.props;
+    const { movies, nominations, search_param, nominateMovie } = this.props;
     return (
       <div className="card p-3">
-        <h6 className="mb-4"> Results for "hey"</h6>
+        <h6 className="mb-4"> Results for "{search_param}"</h6>
         <ul>
           {movies.map((movie) => (
             <li key={movie.imdbID} className="mb-3">
@@ -28,7 +18,11 @@ class MovieList extends Component {
                   height: "100px",
                   width: "100px",
                 }}
-                src={movie.Poster}
+                src={
+                  movie.Poster !== "N/A"
+                    ? movie.Poster
+                    : "https://bitsofco.de/content/images/2018/12/broken-1.png"
+                }
                 alt="Movie Poster Name"
               />
               {movie.Title} ({movie.Year})
@@ -51,9 +45,18 @@ class MovieList extends Component {
   }
 }
 
+MovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
+  nominations: PropTypes.array.isRequired,
+  search_param: PropTypes.string.isRequired,
+  getMovies: PropTypes.func.isRequired,
+  nominateMovie: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   movies: state.movie.movies,
   nominations: state.movie.nominations,
+  search_param: state.movie.search_param,
 });
 
 export default connect(mapStateToProps, { getMovies, nominateMovie })(

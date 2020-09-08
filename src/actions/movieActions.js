@@ -5,10 +5,10 @@ export const getMovies = (name) => async (dispatch) => {
   const res = await axios.get(
     `http://www.omdbapi.com/?s=${name}&apikey=7f85ed74`
   );
-
+  let result = res.data.Search ?? [];
   dispatch({
     type: GET_MOVIES,
-    payload: res.data.Search,
+    payload: { result, search_param: name },
   });
 };
 
