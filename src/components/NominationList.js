@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { nominateMovie } from "../actions/movieActions";
+import { removeMovie } from "../actions/movieActions";
 
 class MovieList extends Component {
   static propTypes = {
     movies: PropTypes.array.isRequired,
-    nominateMovie: PropTypes.func.isRequired,
+    removeMovie: PropTypes.func.isRequired,
   };
 
   componentWillMount() {}
 
   render() {
-    const { nominations, nominateMovie } = this.props;
+    const { nominations, removeMovie } = this.props;
     return (
       <div className="card p-3">
         <h6 className="mb-4">Nominations</h6>
@@ -31,7 +31,7 @@ class MovieList extends Component {
               {movie.Title} ({movie.Year})
               <button
                 onClick={() => {
-                  nominateMovie(movie);
+                  removeMovie(movie);
                 }}
                 className="btn btn-light border"
               >
@@ -49,4 +49,4 @@ const mapStateToProps = (state) => ({
   nominations: state.movie.nominations,
 });
 
-export default connect(mapStateToProps, { nominateMovie })(MovieList);
+export default connect(mapStateToProps, { removeMovie })(MovieList);
