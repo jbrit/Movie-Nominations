@@ -3,7 +3,7 @@ import { GET_MOVIES, NOMINATE_MOVIE, REMOVE_MOVIE } from "./types.js";
 
 export const getMovies = (name) => async (dispatch) => {
   const res = await axios.get(
-    `http://www.omdbapi.com/?s=${name}&apikey=7f85ed74`
+    `https://www.omdbapi.com/?s=${name}&apikey=7f85ed74`
   );
   let result = res.data.Search ?? [];
   dispatch({
