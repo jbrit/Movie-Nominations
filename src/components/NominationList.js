@@ -25,7 +25,11 @@ class NominationList extends Component {
                   height: "100px",
                   width: "100px",
                 }}
-                src={movie.Poster}
+                src={
+                  movie.Poster !== "N/A"
+                    ? movie.Poster
+                    : "https://bitsofco.de/content/images/2018/12/broken-1.png"
+                }
                 alt="Movie Poster Name"
               />
               {movie.Title} ({movie.Year})
