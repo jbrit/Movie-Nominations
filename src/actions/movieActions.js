@@ -5,6 +5,7 @@ import {
   REMOVE_MOVIE,
   CLEAR_MOVIES,
   SET_SEARCHPARAM,
+  SET_ISSEARCHING,
 } from "./types.js";
 
 export const getMovies = (name, page = 1) => async (dispatch) => {
@@ -57,6 +58,12 @@ export const setSearchparam = (name) => (dispatch) => {
   dispatch({
     type: SET_SEARCHPARAM,
     payload: name,
+  });
+};
+export const setIsSearching = (bool) => (dispatch) => {
+  dispatch({
+    type: SET_ISSEARCHING,
+    payload: bool,
   });
 };
 export const nominateMovie = (movie) => (dispatch) => {

@@ -5,10 +5,16 @@ import {
   getMovies,
   clearMovies,
   setSearchparam,
+  setIsSearching,
 } from "../actions/movieActions";
 import { useLocation, useHistory } from "react-router-dom";
 
-const SearchBox = ({ getMovies, clearMovies, setSearchparam }) => {
+const SearchBox = ({
+  getMovies,
+  clearMovies,
+  setSearchparam,
+  setIsSearching,
+}) => {
   const [currentTitle, setCurrentTitle] = useState(""),
     location = useLocation(),
     [searchedTitle, setSearchedTitle] = useState(""),
@@ -26,12 +32,20 @@ const SearchBox = ({ getMovies, clearMovies, setSearchparam }) => {
     const page = searchParams.get("page");
     setCurrentTitle(searchWord);
     setSearchedTitle(searchWord);
+    setIsSearching(true);
     searchedTitle && getMovies(searchedTitle.trim(), page);
     searchedTitle && setSearchparam(searchedTitle);
     return () => {
       clearMovies();
     };
-  }, [location, searchedTitle, getMovies, clearMovies, setSearchparam]);
+  }, [
+    location,
+    searchedTitle,
+    getMovies,
+    clearMovies,
+    setSearchparam,
+    setIsSearching,
+  ]);
   return (
     <div className="card">
       <div className="card-body">
@@ -64,6 +78,9 @@ SearchBox.propTypes = {
   setSearchparam: PropTypes.func.isRequired,
 };
 
-export default connect(null, { getMovies, clearMovies, setSearchparam })(
-  SearchBox
-);
+export default connect(null, {
+  getMovies,
+  clearMovies,
+  setSearchparam,
+  setIsSearching,
+})(SearchBox);

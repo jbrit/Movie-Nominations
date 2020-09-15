@@ -2,4 +2,5 @@ export const GET_MOVIES = "GET_MOVIES";
 export const CLEAR_MOVIES = "CLEAR_MOVIES";
 export const NOMINATE_MOVIE = "NOMINATE_MOVIE";
 export const SET_SEARCHPARAM = "SET_SEARCHPARAM";
+export const SET_ISSEARCHING = "SET_ISSEARCHING";
 export const REMOVE_MOVIE = "REMOVE_MOVIE";
