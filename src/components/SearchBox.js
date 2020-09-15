@@ -28,7 +28,7 @@ const SearchBox = ({
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const searchWord = searchParams.get("s");
+    const searchWord = searchParams.get("s") ?? "";
     const page = searchParams.get("page");
     setCurrentTitle(searchWord);
     setSearchedTitle(searchWord);
