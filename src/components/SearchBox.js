@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getMovies } from "../actions/movieActions";
+import {
+  getMovies,
+  clearMovies,
+  setSearchparam,
+} from "../actions/movieActions";
 import { useLocation, useHistory } from "react-router-dom";
 
-const SearchBox = ({ getMovies }) => {
+const SearchBox = ({ getMovies, clearMovies, setSearchparam }) => {
   const [currentTitle, setCurrentTitle] = useState(""),
     location = useLocation(),
     [searchedTitle, setSearchedTitle] = useState(""),
@@ -13,7 +17,7 @@ const SearchBox = ({ getMovies }) => {
     handleSubmit = (e) => {
       e.preventDefault();
       setSearchedTitle(currentTitle);
-      history.push(`/search/?s=${currentTitle}${`&page=`}`);
+      history.push(`/search/?s=${encodeURIComponent(currentTitle)}${`&page=`}`);
     };
 
   useEffect(() => {
@@ -23,7 +27,11 @@ const SearchBox = ({ getMovies }) => {
     setCurrentTitle(searchWord);
     setSearchedTitle(searchWord);
     searchedTitle && getMovies(searchedTitle.trim(), page);
-  }, [location, searchedTitle, getMovies]);
+    searchedTitle && setSearchparam(searchedTitle);
+    return () => {
+      clearMovies();
+    };
+  }, [location, searchedTitle, getMovies, clearMovies, setSearchparam]);
   return (
     <div className="card">
       <div className="card-body">
@@ -51,7 +59,11 @@ const SearchBox = ({ getMovies }) => {
 };
 
 SearchBox.propTypes = {
+  clearMovies: PropTypes.func.isRequired,
   getMovies: PropTypes.func.isRequired,
+  setSearchparam: PropTypes.func.isRequired,
 };
 
-export default connect(null, { getMovies })(SearchBox);
+export default connect(null, { getMovies, clearMovies, setSearchparam })(
+  SearchBox
+);

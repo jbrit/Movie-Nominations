@@ -2,13 +2,15 @@ const {
   GET_MOVIES,
   NOMINATE_MOVIE,
   REMOVE_MOVIE,
+  CLEAR_MOVIES,
+  SET_SEARCHPARAM,
 } = require("../actions/types");
 const current_nominations = localStorage.getItem("nominations")
   ? JSON.parse(localStorage.getItem("nominations"))
   : [];
 
 const initialState = {
-  movies: [],
+  search_result: { movies: [] },
   nominations: [...current_nominations],
   search_param: "",
 };
@@ -18,8 +20,18 @@ export default (state = initialState, action) => {
     case GET_MOVIES:
       return {
         ...state,
-        movies: [...action.payload.result],
-        search_param: action.payload.search_param,
+        search_result: { ...state.search_result, ...action.payload },
+      };
+    case CLEAR_MOVIES:
+      return {
+        ...state,
+        search_result: { ...state.search_result, movies: [] },
+        search_param: "",
+      };
+    case SET_SEARCHPARAM:
+      return {
+        ...state,
+        search_param: action.payload,
       };
     case NOMINATE_MOVIE:
       active_nominations = [...state.nominations, action.payload];

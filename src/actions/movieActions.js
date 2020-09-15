@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_MOVIES, NOMINATE_MOVIE, REMOVE_MOVIE } from "./types.js";
+import {
+  GET_MOVIES,
+  NOMINATE_MOVIE,
+  REMOVE_MOVIE,
+  CLEAR_MOVIES,
+  SET_SEARCHPARAM,
+} from "./types.js";
 
 export const getMovies = (name, page = 1) => async (dispatch) => {
   try {
@@ -30,20 +36,29 @@ export const getMovies = (name, page = 1) => async (dispatch) => {
           endResult: hasNext ? currentPage * 10 : parseInt(totalResults),
         };
 
-      res.data = { ...res.data, ...paginationData };
+      res.data = { ...res.data, ...paginationData, movies: res.data.Search };
     }
     console.log(res.data);
-    let result = res.data.Search ?? [];
+    let result = res.data;
     dispatch({
       type: GET_MOVIES,
-      payload: { result, search_param: name },
+      payload: result,
     });
   } catch (error) {
     // Handle Could not search, Try again
-    console.log("An Error Occured");
+    dispatch({
+      type: GET_MOVIES,
+      payload: { Response: "False", notRequested: true },
+    });
   }
 };
 
+export const setSearchparam = (name) => (dispatch) => {
+  dispatch({
+    type: SET_SEARCHPARAM,
+    payload: name,
+  });
+};
 export const nominateMovie = (movie) => (dispatch) => {
   dispatch({
     type: NOMINATE_MOVIE,
@@ -55,5 +70,11 @@ export const removeMovie = (movie) => (dispatch) => {
   dispatch({
     type: REMOVE_MOVIE,
     payload: movie,
+  });
+};
+
+export const clearMovies = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_MOVIES,
   });
 };

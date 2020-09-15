@@ -49,7 +49,7 @@ MovieList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movie.movies,
+  movies: state.movie.search_result.movies,
   nominations: state.movie.nominations,
   search_param: state.movie.search_param,
 });
