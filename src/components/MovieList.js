@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { nominateMovie, getMovies } from "../actions/movieActions";
+import Paginator from "./Paginator";
 
 const MovieList = ({
   movies,
@@ -58,6 +59,7 @@ const MovieList = ({
             </button>
           </li>
         ))}
+        <Paginator />
       </ul>
     </div>
   );

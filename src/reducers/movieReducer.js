@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
     case CLEAR_MOVIES:
       return {
         ...state,
-        search_result: { ...state.search_result, movies: [] },
+        search_result: { movies: [] },
         search_param: "",
       };
     case SET_ISSEARCHING:
