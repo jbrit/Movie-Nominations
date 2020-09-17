@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getMovie, setIsFetching } from "../../actions/mdetailActions";
-import { nominateMovie } from "../../actions/movieActions";
+import { useParams, Link } from "react-router-dom";
+import {
+  getMovie,
+  setIsFetching,
+  clearMovie,
+} from "../../actions/mdetailActions";
+import { nominateMovie, removeMovie } from "../../actions/movieActions";
 
 const MoviePage = ({
   getMovie,
+  removeMovie,
+  clearMovie,
   setIsFetching,
   isFetching,
   nominateMovie,
@@ -35,9 +41,19 @@ const MoviePage = ({
   useEffect(() => {
     setIsFetching(true);
     getMovie(id);
-  }, []);
+    return () => {
+      clearMovie();
+    };
+  }, [clearMovie, getMovie, setIsFetching, id]);
   return (
     <div className="container py-5">
+      <Link className="pr-3" to="/">
+        Home
+      </Link>
+      |
+      <Link className="pl-3" to="/search">
+        Search
+      </Link>
       <h4>Movie Detail Page</h4>
       {isFetching ? "Loading" : ""}
       {movie.Response === "True" ? (
@@ -71,8 +87,28 @@ const MoviePage = ({
           <li>Country: {Country}</li>
           <li>Awards: {Awards}</li>
 
-          <li>Ratings: {JSON.stringify(Ratings)}</li>
+          <li>
+            Ratings:
+            {Ratings !== "N/A" ? (
+              <ul>
+                {Ratings.map((rating) => (
+                  <li key={rating.Source + rating.Value}>
+                    {rating.Source}: {rating.Value}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              Ratings
+            )}
+          </li>
           <li>Metascore: {Metascore}</li>
+          <li>
+            It is currently
+            {!nominations.some((elt) => elt.imdbID === movie.imdbID)
+              ? " not "
+              : " "}
+            part of the nomination list
+          </li>
           <button
             onClick={() => {
               nominateMovie(movie);
@@ -81,6 +117,15 @@ const MoviePage = ({
             disabled={nominations.some((elt) => elt.imdbID === movie.imdbID)}
           >
             Nominate
+          </button>
+          <button
+            onClick={() => {
+              removeMovie(movie);
+            }}
+            className="btn btn-danger border"
+            disabled={!nominations.some((elt) => elt.imdbID === movie.imdbID)}
+          >
+            Remove
           </button>
         </ul>
       ) : null}
@@ -99,4 +144,6 @@ export default connect(mapStateToProps, {
   getMovie,
   setIsFetching,
   nominateMovie,
+  removeMovie,
+  clearMovie,
 })(MoviePage);

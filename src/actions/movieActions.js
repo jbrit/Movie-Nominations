@@ -39,7 +39,6 @@ export const getMovies = (name, page = 1) => async (dispatch) => {
 
       res.data = { ...res.data, ...paginationData, movies: res.data.Search };
     }
-    console.log(res.data);
     let result = res.data;
     dispatch({
       type: GET_MOVIES,

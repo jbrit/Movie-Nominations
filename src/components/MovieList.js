@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { nominateMovie, getMovies } from "../actions/movieActions";
 import Paginator from "./Paginator";
+import { Link } from "react-router-dom";
 
 const MovieList = ({
   movies,
@@ -57,6 +58,7 @@ const MovieList = ({
             >
               Nominate
             </button>
+            <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
           </li>
         ))}
         <Paginator />

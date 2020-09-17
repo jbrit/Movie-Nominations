@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { removeMovie } from "../actions/movieActions";
+import { Link } from "react-router-dom";
 
 const NominationList = ({ nominations, removeMovie }) => {
   return (
@@ -32,6 +33,7 @@ const NominationList = ({ nominations, removeMovie }) => {
             >
               Remove
             </button>
+            <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
           </li>
         ))}
       </ul>

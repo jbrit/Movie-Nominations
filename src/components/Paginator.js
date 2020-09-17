@@ -20,14 +20,14 @@ const Paginator = ({
       ) : (
         <>
           <Link
-            to={previousPage ? "/search/?" + previousPage : null}
+            to={previousPage ? "/search/?" + previousPage : "#"}
             onClick={(e) => handleClick(e, hasPrevious)}
           >
             Prev
           </Link>
           Page {currentPage} of {totalPages}
           <Link
-            to={nextPage ? "/search/?" + nextPage : null}
+            to={nextPage ? "/search/?" + nextPage : "#"}
             onClick={(e) => handleClick(e, hasNext)}
           >
             Next
