@@ -47,28 +47,23 @@ const SearchBox = ({
     setIsSearching,
   ]);
   return (
-    <div className="card">
-      <div className="card-body">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="movieTitle">Movie Title</label>
-            <input
-              value={currentTitle}
-              onChange={onChange}
-              name="movieTitle"
-              type="text"
-              className="form-control"
-              id="movieTitle"
-              placeholder="Example input placeholder"
-              autoFocus
-            />
-          </div>
-          <button className="btn btn-light border" type="submit">
-            Search
-          </button>
-        </form>
+    <form onSubmit={handleSubmit}>
+      <div className="d-flex align-items-stretch">
+        <input
+          value={currentTitle}
+          onChange={onChange}
+          name="movieTitle"
+          type="text"
+          className="my-form-control"
+          id="movieTitle"
+          placeholder="Start Searching"
+          autoFocus
+        />
+        <button className="jb-btn jb-btn-primary inline-form-btn" type="submit">
+          Search
+        </button>
       </div>
-    </div>
+    </form>
   );
 };
 

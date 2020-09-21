@@ -17,13 +17,7 @@ const MovieList = ({
 }) => {
   return (
     <div className="card p-3">
-      {search_param ? (
-        <h6 className="mb-4"> Results for "{search_param}"</h6>
-      ) : (
-        ""
-      )}
-      <ul>
-        {/* If not title, if loading, if notloaded, if response not true, else result */}
+      <div className="mb-4 f-22 f-sm-24 f-md-28 fw-700">
         {!search_param
           ? "Type to search"
           : loading
@@ -32,7 +26,12 @@ const MovieList = ({
           ? "Couldn't Search Successfully!"
           : response === "False"
           ? error
-          : ""}
+          : `Search Results for: “${search_param}”`}
+      </div>
+
+      <ul>
+        {/* If not title, if loading, if notloaded, if response not true, else result */}
+
         {movies.map((movie) => (
           <li key={movie.imdbID} className="mb-3">
             <img
@@ -49,16 +48,25 @@ const MovieList = ({
               alt="Movie Poster Name"
             />
             {movie.Title} ({movie.Year})
-            <button
-              onClick={() => {
-                nominateMovie(movie);
-              }}
-              className="btn btn-light border"
-              disabled={nominations.some((elt) => elt.imdbID === movie.imdbID)}
-            >
-              Nominate
-            </button>
-            <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
+            <div>
+              <button
+                onClick={() => {
+                  nominateMovie(movie);
+                }}
+                className="jb-btn jb-btn-primary"
+                disabled={nominations.some(
+                  (elt) => elt.imdbID === movie.imdbID
+                )}
+              >
+                Nominate
+              </button>
+              <Link
+                className="btn btn-outline-primary fw-400 ml-2"
+                to={`/movie/${movie.imdbID}`}
+              >
+                View Details
+              </Link>
+            </div>
           </li>
         ))}
         <Paginator />

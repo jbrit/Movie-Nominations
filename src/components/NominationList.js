@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const NominationList = ({ nominations, removeMovie }) => {
   return (
     <div className="card p-3">
-      <h6 className="mb-4">Nominations</h6>
+      <h6 className="mb-4 f-22 f-sm-24 f-md-28 fw-700">Nominations</h6>
       <ul>
         {nominations.map((movie) => (
           <li key={movie.imdbID} className="mb-3">

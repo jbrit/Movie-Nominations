@@ -12,12 +12,14 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Switch>
-            <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/search" component={SearchPage}></Route>
-            <Route exact path="/movie/:id" component={MoviePage}></Route>
-            <Route path="/" component={NotFound}></Route>
-          </Switch>
+          <div className="container-fluid main-container px-3 px-md-4 px-lg-5">
+            <Switch>
+              <Route exact path="/" component={HomePage}></Route>
+              <Route exact path="/search" component={SearchPage}></Route>
+              <Route exact path="/movie/:id" component={MoviePage}></Route>
+              <Route path="/" component={NotFound}></Route>
+            </Switch>
+          </div>
         </div>
       </Router>
     </Provider>
