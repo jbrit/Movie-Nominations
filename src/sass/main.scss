@@ -17,6 +17,11 @@ body {
 .card {
   background-color: $card-head-color;
 }
+.card-heading {
+  background-color: $card-head-color;
+  border-radius: 5px 5px 0px 0px;
+  padding: 1rem 1.25rem;
+}
 input.my-form-control {
   border: none !important;
   color: $text-color;
@@ -36,6 +41,21 @@ input.my-form-control {
 .inline-form-btn {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+ul {
+  list-style-type: none;
+}
+.card-content {
+  padding: 1rem 1.25rem;
+  li {
+    padding: 1rem 1.25rem;
+    background-color: $card-body-color;
+    border-bottom: $divider-color 2px solid;
+    &:last-of-type {
+      border-radius: 0 0 5px 5px;
+      border: none;
+    }
+  }
 }
 
 // Utilities

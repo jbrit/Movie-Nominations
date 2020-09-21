@@ -6,14 +6,17 @@ import { Link } from "react-router-dom";
 
 const NominationList = ({ nominations, removeMovie }) => {
   return (
-    <div className="card p-3">
-      <h6 className="mb-4 f-22 f-sm-24 f-md-28 fw-700">Nominations</h6>
-      <ul>
+    <>
+      <div className="card-heading f-22 f-sm-24 f-md-28 fw-700">
+        Nominations
+      </div>
+      <ul className="card-content p-0">
         {nominations.map((movie) => (
-          <li key={movie.imdbID} className="mb-3">
+          <li key={movie.imdbID} className="d-flex align-items-stretch">
             <img
+              className="mr-3"
               style={{
-                objectFit: "contain",
+                objectFit: "cover",
                 height: "100px",
                 width: "100px",
               }}
@@ -24,20 +27,26 @@ const NominationList = ({ nominations, removeMovie }) => {
               }
               alt="Movie Poster Name"
             />
-            {movie.Title} ({movie.Year})
-            <button
-              onClick={() => {
-                removeMovie(movie);
-              }}
-              className="btn btn-light border"
-            >
-              Remove
-            </button>
-            <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
+            <div className="w-100">
+              <div>
+                {movie.Title} ({movie.Year})
+              </div>
+              <div>
+                <button
+                  onClick={() => {
+                    removeMovie(movie);
+                  }}
+                  className="btn btn-light border"
+                >
+                  Remove
+                </button>
+                <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 

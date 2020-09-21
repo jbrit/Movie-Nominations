@@ -6,21 +6,20 @@ import SearchPage from "./components/pages/SearchPage";
 import MoviePage from "./components/pages/MoviePage";
 import HomePage from "./components/pages/HomePage";
 import NotFound from "./components/pages/NotFound";
+import PageContainer from "./components/PageContainer";
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <div className="App">
-          <div className="container-fluid main-container px-3 px-md-4 px-lg-5">
-            <Switch>
-              <Route exact path="/" component={HomePage}></Route>
-              <Route exact path="/search" component={SearchPage}></Route>
-              <Route exact path="/movie/:id" component={MoviePage}></Route>
-              <Route path="/" component={NotFound}></Route>
-            </Switch>
-          </div>
-        </div>
+        <PageContainer>
+          <Switch>
+            <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/search" component={SearchPage}></Route>
+            <Route exact path="/movie/:id" component={MoviePage}></Route>
+            <Route path="/" component={NotFound}></Route>
+          </Switch>
+        </PageContainer>
       </Router>
     </Provider>
   );
