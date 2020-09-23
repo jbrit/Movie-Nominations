@@ -46,14 +46,16 @@ const MovieList = ({
               }
               alt="Movie Poster Name"
             />
-            <div className="">
-              {movie.Title} ({movie.Year})
+            <div className="d-flex flex-column justify-content-center">
+              <div className="f-22 mb-3 fw-400">
+                <span className="fw-600">{movie.Title}</span> ({movie.Year})
+              </div>
               <div>
                 <button
                   onClick={() => {
                     nominateMovie(movie);
                   }}
-                  className="jb-btn jb-btn-primary"
+                  className="f18 jb-btn jb-btn-primary mb-2 mr-2"
                   disabled={nominations.some(
                     (elt) => elt.imdbID === movie.imdbID
                   )}
@@ -61,7 +63,7 @@ const MovieList = ({
                   Nominate
                 </button>
                 <Link
-                  className="btn btn-outline-primary fw-400 ml-2"
+                  className="f18 jb-btn jb-btn-outline-primary mb-2"
                   to={`/movie/${movie.imdbID}`}
                 >
                   View Details
