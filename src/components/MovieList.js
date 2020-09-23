@@ -16,8 +16,8 @@ const MovieList = ({
   notRequested,
 }) => {
   return (
-    <div className="card p-3">
-      <div className="mb-4 f-22 f-sm-24 f-md-28 fw-700">
+    <>
+      <div className="card-heading f-22 f-sm-24 f-md-28 fw-700">
         {!search_param
           ? "Type to search"
           : loading
@@ -29,16 +29,15 @@ const MovieList = ({
           : `Search Results for: “${search_param}”`}
       </div>
 
-      <ul>
+      <ul className="card-content p-0">
         {/* If not title, if loading, if notloaded, if response not true, else result */}
-
         {movies.map((movie) => (
-          <li key={movie.imdbID} className="mb-3">
+          <li className="movie-item" key={movie.imdbID}>
             <img
               style={{
                 objectFit: "contain",
-                height: "100px",
-                width: "100px",
+                height: "160px",
+                width: "160px",
               }}
               src={
                 movie.Poster !== "N/A"
@@ -47,31 +46,33 @@ const MovieList = ({
               }
               alt="Movie Poster Name"
             />
-            {movie.Title} ({movie.Year})
-            <div>
-              <button
-                onClick={() => {
-                  nominateMovie(movie);
-                }}
-                className="jb-btn jb-btn-primary"
-                disabled={nominations.some(
-                  (elt) => elt.imdbID === movie.imdbID
-                )}
-              >
-                Nominate
-              </button>
-              <Link
-                className="btn btn-outline-primary fw-400 ml-2"
-                to={`/movie/${movie.imdbID}`}
-              >
-                View Details
-              </Link>
+            <div className="">
+              {movie.Title} ({movie.Year})
+              <div>
+                <button
+                  onClick={() => {
+                    nominateMovie(movie);
+                  }}
+                  className="jb-btn jb-btn-primary"
+                  disabled={nominations.some(
+                    (elt) => elt.imdbID === movie.imdbID
+                  )}
+                >
+                  Nominate
+                </button>
+                <Link
+                  className="btn btn-outline-primary fw-400 ml-2"
+                  to={`/movie/${movie.imdbID}`}
+                >
+                  View Details
+                </Link>
+              </div>
             </div>
           </li>
         ))}
-        <Paginator />
       </ul>
-    </div>
+      <Paginator />
+    </>
   );
 };
 

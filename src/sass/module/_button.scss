@@ -2,8 +2,6 @@
   &[disabled],
   &[disabled]:hover {
     opacity: 0.5;
-    // background-color: darken($color, 9.5%);
-    // border-color: darken($color, 9.5%);
     cursor: not-allowed;
   }
   &:hover {
@@ -11,8 +9,12 @@
     border-color: darken($color, 2.5%);
   }
   &:active {
+    background-color: darken($color, 7%);
     border-color: darken($color, 7%);
   }
+}
+@mixin darkOutlined($color) {
+  @include darkenFilled($color);
 }
 .jb-btn {
   border-radius: $btn-radius;
