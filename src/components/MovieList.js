@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { nominateMovie, getMovies } from "../actions/movieActions";
+import { getMovies } from "../actions/movieActions";
 import Paginator from "./Paginator";
-import { Link } from "react-router-dom";
+import MovieItem from "./MovieItem";
 
 const MovieList = ({
   movies,
   nominations,
   search_param,
-  nominateMovie,
+
   loading,
   response,
   error,
@@ -32,45 +32,11 @@ const MovieList = ({
       <ul className="card-content p-0">
         {/* If not title, if loading, if notloaded, if response not true, else result */}
         {movies.map((movie) => (
-          <li className="movie-item" key={movie.imdbID}>
-            <img
-              style={{
-                objectFit: "contain",
-                height: "160px",
-                width: "160px",
-              }}
-              src={
-                movie.Poster !== "N/A"
-                  ? movie.Poster
-                  : "https://bitsofco.de/content/images/2018/12/broken-1.png"
-              }
-              alt="Movie Poster Name"
-            />
-            <div className="d-flex flex-column justify-content-center">
-              <div className="f-22 mb-3 fw-400">
-                <span className="fw-600">{movie.Title}</span> ({movie.Year})
-              </div>
-              <div>
-                <button
-                  onClick={() => {
-                    nominateMovie(movie);
-                  }}
-                  className="f18 jb-btn jb-btn-primary mb-2 mr-2"
-                  disabled={nominations.some(
-                    (elt) => elt.imdbID === movie.imdbID
-                  )}
-                >
-                  Nominate
-                </button>
-                <Link
-                  className="f18 jb-btn jb-btn-outline-primary mb-2"
-                  to={`/movie/${movie.imdbID}`}
-                >
-                  View Details
-                </Link>
-              </div>
-            </div>
-          </li>
+          <MovieItem
+            key={movie.imdbID}
+            movie={movie}
+            nominations={nominations}
+          />
         ))}
       </ul>
       <Paginator />
@@ -86,7 +52,6 @@ MovieList.propTypes = {
   notRequested: PropTypes.bool,
   search_param: PropTypes.string.isRequired,
   getMovies: PropTypes.func.isRequired,
-  nominateMovie: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
@@ -100,6 +65,4 @@ const mapStateToProps = (state) => ({
   loading: state.movie.isSearching,
 });
 
-export default connect(mapStateToProps, { getMovies, nominateMovie })(
-  MovieList
-);
+export default connect(mapStateToProps, { getMovies })(MovieList);

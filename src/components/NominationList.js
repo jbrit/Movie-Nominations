@@ -8,7 +8,9 @@ const NominationList = ({ nominations, removeMovie }) => {
   return (
     <>
       <div className="card-heading f-22 f-sm-24 f-md-28 fw-700">
-        Nominations
+        Nominations (
+        {nominations.length < 5 ? `${5 - nominations.length} left` : "Complete"}
+        )
       </div>
       <ul className="card-content p-0">
         {nominations.map((movie) => (

@@ -3,7 +3,7 @@ import SearchBox from "../SearchBox";
 
 const HomePage = () => {
   return (
-    <div className="min-vh-100 py-5 d-flex flex-column justify-content-center text-center">
+    <div className="my-auto py-5 d-flex flex-column justify-content-center text-center">
       <div className="f-36 f-md-56 f-lg-64 fw-600">
         Save your favourite Movies
       </div>

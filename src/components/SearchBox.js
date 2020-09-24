@@ -33,8 +33,13 @@ const SearchBox = ({
     setCurrentTitle(searchWord);
     setSearchedTitle(searchWord);
     setIsSearching(true);
-    searchedTitle && getMovies(searchedTitle.trim(), page);
-    searchedTitle && setSearchparam(searchedTitle);
+    searchedTitle || setIsSearching(false);
+    searchedTitle &&
+      searchedTitle.trim().length !== 0 &&
+      getMovies(searchedTitle.trim(), page);
+    searchedTitle &&
+      searchedTitle.trim().length !== 0 &&
+      setSearchparam(searchedTitle);
     return () => {
       clearMovies();
     };

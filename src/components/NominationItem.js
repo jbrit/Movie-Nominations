@@ -22,20 +22,24 @@ const NominationItem = ({ movie, removeMovie }) => {
         }
         alt="Movie Poster Name"
       />
-      <div className="w-100">
-        <div>
-          {movie.Title} ({movie.Year})
+      <div className="d-flex flex-column justify-content-center">
+        <div className="mb-1">
+          <span className="fw-600">{movie.Title}</span> ({movie.Year})
         </div>
         <div>
-          <button
-            onClick={() => {
+          <a
+            href="#remove"
+            className="text-danger d-inline-block mr-2"
+            onClick={(e) => {
+              e.preventDefault();
               removeMovie(movie);
             }}
-            className="btn btn-light border"
           >
             Remove
-          </button>
-          <Link to={`/movie/${movie.imdbID}`}>View Details</Link>
+          </a>
+          <Link className="d-inline-block" to={`/movie/${movie.imdbID}`}>
+            View Details
+          </Link>
         </div>
       </div>
     </li>
