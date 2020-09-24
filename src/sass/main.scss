@@ -65,6 +65,14 @@ ul {
     }
   }
 }
+.detail-list {
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+.mini-head {
+  font-weight: 600;
+}
 
 // Utilities
 @import "base/utilities";

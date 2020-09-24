@@ -42,8 +42,12 @@ export default (state = initialState, action) => {
         search_param: action.payload,
       };
     case NOMINATE_MOVIE:
-      active_nominations = [...state.nominations, action.payload];
+      active_nominations = [...state.nominations];
+      active_nominations.length < 5
+        ? (active_nominations = [...state.nominations, action.payload])
+        : (active_nominations = active_nominations.slice(0, 5));
       localStorage.setItem("nominations", JSON.stringify(active_nominations));
+
       return {
         ...state,
         nominations: [...active_nominations],

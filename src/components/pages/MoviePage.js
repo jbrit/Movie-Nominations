@@ -7,6 +7,8 @@ import {
   clearMovie,
 } from "../../actions/mdetailActions";
 import { nominateMovie, removeMovie } from "../../actions/movieActions";
+import NominationList from "../NominationList";
+import SearchBox from "../SearchBox";
 
 const MoviePage = ({
   getMovie,
@@ -46,90 +48,143 @@ const MoviePage = ({
     };
   }, [clearMovie, getMovie, setIsFetching, id]);
   return (
-    <div className="container py-5">
-      <Link className="pr-3" to="/">
-        Home
-      </Link>
-      |
-      <Link className="pl-3" to="/search">
-        Search
-      </Link>
-      <h4>Movie Detail Page</h4>
-      {isFetching ? "Loading" : ""}
-      {movie.Response === "True" ? (
-        <ul>
-          <li>
-            <img
-              style={{
-                objectFit: "contain",
-                height: "300px",
-                width: "300px",
-              }}
-              src={
-                Poster !== "N/A"
-                  ? Poster
-                  : "https://bitsofco.de/content/images/2018/12/broken-1.png"
-              }
-              alt={Title + " image"}
-            />
-          </li>
-          <li>Title: {Title}</li>
-          <li>Year: {Year}</li>
-          <li>Rated: {Rated}</li>
-          <li>Released:{Released}</li>
-          <li>Runtime:{Runtime}</li>
-          <li>Genre: {Genre}</li>
-          <li>Director: {Director}</li>
-          <li>Writer: {Writer}</li>
-          <li>Actors: {Actors}</li>
-          <li>Plot: {Plot}</li>
-          <li>Language: {Language}</li>
-          <li>Country: {Country}</li>
-          <li>Awards: {Awards}</li>
-
-          <li>
-            Ratings:
-            {Ratings !== "N/A" ? (
-              <ul>
-                {Ratings.map((rating) => (
-                  <li key={rating.Source + rating.Value}>
-                    {rating.Source}: {rating.Value}
+    <div className="py-5">
+      <div className="row mb-5">
+        <div className="col-12 col-md-7 pr-md-0">
+          <SearchBox />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-7 mb-5 mb-md-0 pr-md-0">
+          <div className="card-heading f-22 f-sm-24 f-md-28 fw-700">
+            Movie Details
+          </div>
+          <div className="card-content">
+            {isFetching ? "Loading" : ""}
+            {movie.Response === "True" ? (
+              <>
+                <div className="f-22 mb-4">
+                  {Title} ({Year})
+                </div>
+                <div className="d-flex flex-wrap">
+                  <div className="col-12 col-md-6 mb-2 mb-md-0 p-0">
+                    <img
+                      style={{
+                        objectFit: "cover",
+                        height: "300px",
+                        width: "100%",
+                        maxWidth: "300px",
+                      }}
+                      src={
+                        Poster !== "N/A"
+                          ? Poster
+                          : "https://bitsofco.de/content/images/2018/12/broken-1.png"
+                      }
+                      alt={Title + " image"}
+                    />
+                  </div>
+                  <div className="col-12 col-md-6 d-md-flex align-items-center py-0 px-0 px-md-2">
+                    <div className="">
+                      <span className="mini-head">Storyline:</span> {Plot}
+                    </div>
+                  </div>
+                </div>
+                <ul className="p-0 py-2 detail-list">
+                  <li>
+                    <span className="mini-head">Ratings: </span>
+                    {Ratings === "N/A" ? (
+                      Ratings
+                    ) : Ratings.length !== 0 ? (
+                      <ul>
+                        {Ratings.map((rating) => (
+                          <li key={rating.Source + rating.Value}>
+                            <span className="mini-head rating">
+                              {rating.Source}:
+                            </span>{" "}
+                            {rating.Value}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      "N/A"
+                    )}
                   </li>
-                ))}
-              </ul>
-            ) : (
-              Ratings
-            )}
-          </li>
-          <li>Metascore: {Metascore}</li>
-          <li>
-            It is currently
-            {!nominations.some((elt) => elt.imdbID === movie.imdbID)
-              ? " not "
-              : " "}
-            part of the nomination list
-          </li>
-          <button
-            onClick={() => {
-              nominateMovie(movie);
-            }}
-            className="btn btn-light border"
-            disabled={nominations.some((elt) => elt.imdbID === movie.imdbID)}
-          >
-            Nominate
-          </button>
-          <button
-            onClick={() => {
-              removeMovie(movie);
-            }}
-            className="btn btn-danger border"
-            disabled={!nominations.some((elt) => elt.imdbID === movie.imdbID)}
-          >
-            Remove
-          </button>
-        </ul>
-      ) : null}
-      {Response === "False" ? "Movie Not Found" : null}
+                  <li>
+                    <span className="mini-head">Rated:</span> {Rated}
+                  </li>
+                  <li>
+                    <span className="mini-head">Released:</span> {Released}
+                  </li>
+                  <li>
+                    <span className="mini-head">Runtime:</span> {Runtime}
+                  </li>
+                  <li>
+                    <span className="mini-head">Genre:</span> {Genre}
+                  </li>
+                  <li>
+                    <span className="mini-head">Director:</span> {Director}
+                  </li>
+                  <li>
+                    <span className="mini-head">Writer:</span> {Writer}
+                  </li>
+                  <li>
+                    <span className="mini-head">Actors:</span> {Actors}
+                  </li>
+                  <li>
+                    <span className="mini-head">Country:</span> {Country}
+                  </li>
+                  <li>
+                    <span className="mini-head">Awards:</span> {Awards}
+                  </li>
+                  <li>
+                    <span className="mini-head">Language:</span> {Language}
+                  </li>
+                  <li>
+                    <span className="mini-head">Metascore:</span> {Metascore}
+                  </li>
+
+                  <li>
+                    <span className="mini-head">Status:</span> It is currently
+                    {!nominations.some((elt) => elt.imdbID === movie.imdbID)
+                      ? " not "
+                      : " "}
+                    part of the nomination list
+                  </li>
+                </ul>
+                {!nominations.some((elt) => elt.imdbID === movie.imdbID) ? (
+                  <button
+                    onClick={() => {
+                      nominateMovie(movie);
+                    }}
+                    className="btn btn-light border"
+                    disabled={nominations.some(
+                      (elt) => elt.imdbID === movie.imdbID
+                    )}
+                  >
+                    Nominate
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      removeMovie(movie);
+                    }}
+                    className="btn btn-danger border"
+                    disabled={
+                      !nominations.some((elt) => elt.imdbID === movie.imdbID)
+                    }
+                  >
+                    Remove
+                  </button>
+                )}
+              </>
+            ) : null}
+            {Response === "False" ? "Movie Not Found" : null}
+          </div>
+        </div>
+        <div className="col-12 col-md-5">
+          <NominationList />
+        </div>
+      </div>
     </div>
   );
 };
