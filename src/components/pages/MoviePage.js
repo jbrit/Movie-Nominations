@@ -9,6 +9,8 @@ import {
 import { nominateMovie, removeMovie } from "../../actions/movieActions";
 import NominationList from "../NominationList";
 import SearchBox from "../SearchBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const MoviePage = ({
   getMovie,
@@ -97,7 +99,21 @@ const MoviePage = ({
                     ) : Ratings.length !== 0 ? (
                       <ul>
                         {Ratings.map((rating) => (
-                          <li key={rating.Source + rating.Value}>
+                          <li
+                            className="position-relative"
+                            key={rating.Source + rating.Value}
+                          >
+                            <FontAwesomeIcon
+                              style={{
+                                fontSize: ".65rem",
+                                left: -20,
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                color: "yellow",
+                              }}
+                              className="position-absolute"
+                              icon={faStar}
+                            />
                             <span className="mini-head rating">
                               {rating.Source}:
                             </span>{" "}
@@ -156,7 +172,7 @@ const MoviePage = ({
                     onClick={() => {
                       nominateMovie(movie);
                     }}
-                    className="btn btn-light border"
+                    className="jb-btn jb-btn-primary"
                     disabled={nominations.some(
                       (elt) => elt.imdbID === movie.imdbID
                     )}
@@ -168,7 +184,7 @@ const MoviePage = ({
                     onClick={() => {
                       removeMovie(movie);
                     }}
-                    className="btn btn-danger border"
+                    className="btn btn-danger"
                     disabled={
                       !nominations.some((elt) => elt.imdbID === movie.imdbID)
                     }

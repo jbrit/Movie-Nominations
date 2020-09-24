@@ -20,6 +20,7 @@ const Paginator = ({
       ) : (
         <>
           <Link
+            className="jb-btn jb-btn-primary mr-2"
             to={previousPage ? "/search/?" + previousPage : "#"}
             onClick={(e) => handleClick(e, hasPrevious)}
           >
@@ -27,6 +28,7 @@ const Paginator = ({
           </Link>
           Page {currentPage} of {totalPages}
           <Link
+            className="jb-btn jb-btn-primary ml-2"
             to={nextPage ? "/search/?" + nextPage : "#"}
             onClick={(e) => handleClick(e, hasNext)}
           >
