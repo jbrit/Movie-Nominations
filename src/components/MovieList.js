@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getMovies } from "../actions/movieActions";
 import Paginator from "./Paginator";
 import MovieItem from "./MovieItem";
+import MovieItemLoader from "./MovieItemLoader";
 
 const MovieList = ({
   movies,
@@ -18,10 +19,9 @@ const MovieList = ({
   return (
     <>
       <div className="card-heading f-22 f-sm-24 f-md-28 fw-700">
+        {/* & !loading */}
         {!search_param
           ? "Type to search"
-          : loading
-          ? "Loading..."
           : notRequested
           ? "Couldn't Search Successfully!"
           : response === "False"
@@ -30,6 +30,13 @@ const MovieList = ({
       </div>
 
       <ul className="card-content p-0">
+        {loading ? (
+          <>
+            <MovieItemLoader /> <MovieItemLoader />{" "}
+          </>
+        ) : (
+          ""
+        )}
         {/* If not title, if loading, if notloaded, if response not true, else result */}
         {movies.map((movie) => (
           <MovieItem
