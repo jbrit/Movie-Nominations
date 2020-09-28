@@ -186,7 +186,7 @@ const MoviePage = ({
                     onClick={() => {
                       removeMovie(movie);
                     }}
-                    className="btn btn-danger"
+                    className="jb-btn jb-btn-danger"
                     disabled={
                       !nominations.some((elt) => elt.imdbID === movie.imdbID)
                     }

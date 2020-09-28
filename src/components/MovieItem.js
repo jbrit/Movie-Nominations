@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { nominateMovie } from "../actions/movieActions";
+import { nominateMovie, removeMovie } from "../actions/movieActions";
 
-const MovieItem = ({ movie, nominations, nominateMovie }) => (
+const MovieItem = ({ movie, nominations, nominateMovie, removeMovie }) => (
   <li className="movie-item">
     <img
       className="mr-3"
@@ -25,15 +25,25 @@ const MovieItem = ({ movie, nominations, nominateMovie }) => (
         <span className="fw-600">{movie.Title}</span> ({movie.Year})
       </div>
       <div>
-        <button
-          onClick={() => {
-            nominateMovie(movie);
-          }}
-          className="f18 jb-btn jb-btn-primary mb-2 mr-2"
-          disabled={nominations.some((elt) => elt.imdbID === movie.imdbID)}
-        >
-          Nominate
-        </button>
+        {!nominations.some((elt) => elt.imdbID === movie.imdbID) ? (
+          <button
+            onClick={() => {
+              nominateMovie(movie);
+            }}
+            className="f18 jb-btn jb-btn-primary mb-2 mr-2"
+          >
+            Nominate
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              removeMovie(movie);
+            }}
+            className="f18 jb-btn jb-btn-danger mb-2 mr-2"
+          >
+            Remove
+          </button>
+        )}
         <Link
           className="f18 jb-btn jb-btn-outline-primary mb-2"
           to={`/movie/${movie.imdbID}`}
@@ -50,4 +60,4 @@ MovieItem.propTypes = {
   nominations: PropTypes.array.isRequired,
 };
 
-export default connect(null, { nominateMovie })(MovieItem);
+export default connect(null, { nominateMovie, removeMovie })(MovieItem);
