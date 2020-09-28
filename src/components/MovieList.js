@@ -29,7 +29,7 @@ const MovieList = ({
           : `Search Results for: “${search_param}”`}
       </div>
 
-      <ul className="card-content p-0">
+      <ul className="card-content transparent p-0">
         {loading ? (
           <>
             <MovieItemLoader /> <MovieItemLoader />{" "}

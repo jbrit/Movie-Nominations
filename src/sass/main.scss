@@ -49,7 +49,9 @@ ul {
 .card-content {
   padding: 1rem 1.25rem;
   background-color: $card-body-color;
-
+  &.transparent {
+    background-color: transparent;
+  }
   li.movie-item {
     display: flex;
     padding: 1rem 1.25rem;
@@ -81,6 +83,7 @@ ul {
   background-image: url("../load.gif");
   background-size: cover;
   opacity: 0.3;
+  filter: invert(1);
 }
 // Utilities
 @import "base/utilities";

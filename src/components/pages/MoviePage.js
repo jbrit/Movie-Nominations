@@ -11,6 +11,7 @@ import NominationList from "../NominationList";
 import SearchBox from "../SearchBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import MoviePageLoader from "../MoviePageLoader";
 
 const MoviePage = ({
   getMovie,
@@ -62,8 +63,9 @@ const MoviePage = ({
             Movie Details
           </div>
           <div className="card-content">
-            {isFetching ? "Loading" : ""}
-            {movie.Response === "True" ? (
+            {isFetching ? <MoviePageLoader /> : ""}
+            {Response === "False" ? "Movie Not Found" : null}
+            {Response === "True" ? (
               <>
                 <div className="f-22 mb-4">
                   {Title} ({Year})
@@ -194,7 +196,6 @@ const MoviePage = ({
                 )}
               </>
             ) : null}
-            {Response === "False" ? "Movie Not Found" : null}
           </div>
         </div>
         <div className="col-12 col-md-5">
