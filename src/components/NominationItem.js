@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { removeMovie } from "../actions/movieActions";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 const NominationItem = ({ movie, removeMovie }) => {
   return (
@@ -26,19 +28,36 @@ const NominationItem = ({ movie, removeMovie }) => {
         <div className="mb-1">
           <span className="fw-600">{movie.Title}</span> ({movie.Year})
         </div>
-        <div>
+        <div className="d-flex align-items-stretch flex-wrap">
           <a
-            href="#remove"
-            className="text-danger d-inline-block mr-2"
+            href={"/remove/" + movie.Title.split(" ").join("")}
+            className="link-danger d-inline-flex align-items-center mr-2 mr-md-3"
             onClick={(e) => {
               e.preventDefault();
               removeMovie(movie);
             }}
           >
+            <FontAwesomeIcon
+              style={{
+                fontSize: "1rem",
+              }}
+              className="mr-2"
+              icon={faTrash}
+            />
             Remove
           </a>
-          <Link className="d-inline-block" to={`/movie/${movie.imdbID}`}>
+          <Link
+            className="link-primary d-inline-flex align-items-center"
+            to={`/movie/${movie.imdbID}`}
+          >
             View Details
+            <FontAwesomeIcon
+              style={{
+                fontSize: "1rem",
+              }}
+              className="ml-2"
+              icon={faChevronRight}
+            />
           </Link>
         </div>
       </div>
