@@ -48,3 +48,13 @@
   @include addButton(primary, $primary-color);
   @include addButton(danger, $danger-color);
 }
+.page-btn {
+  border-radius: 0;
+  border-color: transparent;
+  background-color: lighten($background-color, 2.5%);
+  &:hover {
+    color: $text-color;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}

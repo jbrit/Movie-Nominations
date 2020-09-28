@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Paginator = ({
   totalPages,
@@ -18,23 +23,35 @@ const Paginator = ({
       {totalPages <= 1 || !totalPages ? (
         <></>
       ) : (
-        <>
+        <div className="d-flex  align-items-stretch">
           <Link
-            className="jb-btn jb-btn-primary mr-2"
+            className="jb-btn page-btn shadow  rounded-left"
             to={previousPage ? "/search/?" + previousPage : "#"}
             onClick={(e) => handleClick(e, hasPrevious)}
           >
-            Prev
+            <FontAwesomeIcon
+              style={{
+                fontSize: "1rem",
+              }}
+              icon={faChevronLeft}
+            />
           </Link>
-          Page {currentPage} of {totalPages}
+          <div className="d-inline-flex page-bg shadow align-items-center px-2">
+            Page {currentPage} of {totalPages}
+          </div>
           <Link
-            className="jb-btn jb-btn-primary ml-2"
+            className="jb-btn page-btn shadow rounded-right"
             to={nextPage ? "/search/?" + nextPage : "#"}
             onClick={(e) => handleClick(e, hasNext)}
           >
-            Next
+            <FontAwesomeIcon
+              style={{
+                fontSize: "1rem",
+              }}
+              icon={faChevronRight}
+            />
           </Link>
-        </>
+        </div>
       )}
     </>
   );

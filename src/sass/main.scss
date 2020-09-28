@@ -102,5 +102,10 @@ a:hover {
     }
   }
 }
+
+.page-bg {
+  background-color: darken(#2b2b3c, 5%);
+}
+
 // Utilities
 @import "base/utilities";
