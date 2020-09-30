@@ -5,7 +5,8 @@ import { getMovies } from "../actions/movieActions";
 import Paginator from "./Paginator";
 import MovieItem from "./MovieItem";
 import MovieItemLoader from "./MovieItemLoader";
-
+import search from "../try_search.svg";
+import not_found from "../not_found.svg";
 const MovieList = ({
   movies,
   nominations,
@@ -28,15 +29,32 @@ const MovieList = ({
           ? error
           : `Search Results for: “${search_param}”`}
       </div>
-
+      {!search_param ? (
+        <div className="card-content text-center">
+          <img
+            className="py-4"
+            style={{ width: "80%", maxWidth: "400px", objectFit: "contain" }}
+            src={search}
+            alt=""
+          />
+        </div>
+      ) : null}
+      {response === "False" ? (
+        <div className="card-content text-center">
+          <img
+            className="py-4"
+            style={{ width: "80%", maxWidth: "400px", objectFit: "contain" }}
+            src={not_found}
+            alt=""
+          />
+        </div>
+      ) : null}
       <ul className="card-content transparent p-0">
         {loading ? (
           <>
             <MovieItemLoader /> <MovieItemLoader />{" "}
           </>
-        ) : (
-          ""
-        )}
+        ) : null}
         {/* If not title, if loading, if notloaded, if response not true, else result */}
         {movies.map((movie) => (
           <MovieItem
