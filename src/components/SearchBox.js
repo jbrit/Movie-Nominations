@@ -17,41 +17,29 @@ const SearchBox = ({
 }) => {
   const [currentTitle, setCurrentTitle] = useState(""),
     location = useLocation(),
-    [searchedTitle, setSearchedTitle] = useState(""),
     history = useHistory(),
     onChange = (e) => setCurrentTitle(e.target.value),
     handleSubmit = (e) => {
       e.preventDefault();
-      setSearchedTitle(currentTitle);
+
       history.push(`/search/?s=${encodeURIComponent(currentTitle)}${`&page=`}`);
     };
 
   useEffect(() => {
-    clearMovies();
     const searchParams = new URLSearchParams(location.search);
-    const searchWord = searchParams.get("s") ?? "";
+    const searchWord = (searchParams.get("s") ?? "").trim();
     const page = searchParams.get("page");
+
     setCurrentTitle(searchWord);
-    setSearchedTitle(searchWord);
+
     setIsSearching(true);
-    searchedTitle || setIsSearching(false);
-    searchedTitle &&
-      searchedTitle.trim().length !== 0 &&
-      getMovies(searchedTitle.trim(), page);
-    searchedTitle &&
-      searchedTitle.trim().length !== 0 &&
-      setSearchparam(searchedTitle);
+    searchWord || setIsSearching(false);
+    searchWord && searchWord.length !== 0 && getMovies(searchWord, page);
+    searchWord && searchWord.length !== 0 && setSearchparam(searchWord);
     return () => {
       clearMovies();
     };
-  }, [
-    location,
-    searchedTitle,
-    getMovies,
-    clearMovies,
-    setSearchparam,
-    setIsSearching,
-  ]);
+  }, [location, getMovies, clearMovies, setSearchparam, setIsSearching]);
   return (
     <form onSubmit={handleSubmit}>
       <div className="d-flex align-items-stretch">
